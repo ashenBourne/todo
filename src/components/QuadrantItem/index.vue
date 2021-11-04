@@ -35,6 +35,7 @@
                 type="textarea"
                 :rows="2"
                 placeholder="请输入内容"
+                @blur="saveData(row)"
               >
               </el-input>
             </el-col>
@@ -81,7 +82,7 @@
           >
             <div class="popover-content">
               <p class="popover-content-title">分数</p>
-              <el-input-number v-model="row.rate" :precision="2" :controls="false" :max="10" :min="0"></el-input-number>
+              <el-input-number v-model="row.rate" :precision="2" :controls="false" :max="10" :min="0" @blur="saveData(row)"></el-input-number>
             </div>
             <span slot="reference" class="point">{{ row.rate }}</span>
           </el-popover>
@@ -99,6 +100,14 @@
             @click="handleDelete(row.id)"
           >
             删除
+          </el-button>
+          <el-button
+            type="text"
+            size="small"
+            style="color:#409EFF"
+            @click="handleFinish(row)"
+          >
+            完结
           </el-button>
         </template>
       </el-table-column>
@@ -131,6 +140,11 @@ export default {
     this.getTableData()
   },
   methods: {
+    handleFinish(data) {
+      const now = new Date().valueOf().toString()
+      data.end_time = now
+      this.saveData(data)
+    },
     async saveData(data) {
       data.create_time = data.create_time.toString()
       data.rate = Number(data.rate)
@@ -172,7 +186,7 @@ export default {
     timeOperation(create_time, end_time) {
       if (!end_time) return null
       const timeDuration = Number(end_time) - Number(create_time)
-      return this.dayjs(timeDuration).format('DD')
+      return this.dayjs(timeDuration).format('D') + '天'
     },
     addNew() {
       this.$prompt('请输入标题', '提示', {
