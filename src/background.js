@@ -66,7 +66,7 @@ app.on('ready', async() => {
   }
   createWindow()
   // 特意设置为全局变量，这样不会被垃圾回收；
-  tray = new Tray(path.join(__static, 'tray.jpg'))
+  tray = new Tray(path.join(__static, 'tray.png'))
   console.log(tray)
   tray.setToolTip('todo') // 鼠标放上去显示的文字；
   tray.on('click', () => {
