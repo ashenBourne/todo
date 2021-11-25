@@ -6,6 +6,9 @@
       <!-- <el-button type="primary" class="no-drag" @click="reload">刷新-测试</el-button> -->
     </div>
     <div class="utils">
+      <el-button class="no-drag" size="mini" type="text" @click="onOpenDevTools">
+        <i class="btn el-icon-s-operation"></i>
+      </el-button>
       <el-button class="no-drag" size="mini" type="text" @click="minimize">
         <i class="btn el-icon-minus"></i>
       </el-button>
@@ -35,6 +38,22 @@ import { remote } from 'electron'
 const win = remote.getCurrentWindow()
 export default {
   methods: {
+    // 打开调试窗口
+    onOpenDevTools() {
+      this.$prompt('请输入密码', '打开调试窗口', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        if (value === '3') {
+          this.openDevTools()
+        }
+      })
+    },
+    openDevTools() {
+      if (!win.webContents.isDevToolsOpened()) {
+        win.webContents.openDevTools()
+      }
+    },
     reload() {
       this.$router.go(0)
     },

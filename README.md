@@ -9,14 +9,22 @@
 
 
 ## 技术栈
-1.Electron
+1. Electron
 
-2.Vue
+2. Vue
 
-3.Element
+3. Element
 
-4.sqlite3
+4. sqlite3
 
 ## 说明
 &nbsp;&nbsp;该项目原本是为了练手electron，后来熟悉之后，新加入了sqlite3，在本地建立数据库、写接口，模拟了一把全栈。sqlite3也是刚刚接触的老技术，是针对Node.js的数据库，非常方便，如不不想自己封装基本类，可以引入sql.js。
+
+## 安装注意事项
+1. cnpm之前，注意安装electron与electron-builder；
+
+2. 如果装不上，可以设置全局变量，指向淘宝镜像：
+
+    ELECTRON_MIRROR：http://npm.taobao.org/mirrors/electron/
+
 

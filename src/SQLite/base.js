@@ -59,6 +59,9 @@ class CRSQ3BaseClass {
   createTable(tablename, param) {
     const sqldata = param.join(',')
     const sentence = ` create table if not exists ${tablename} (${sqldata});`
+    if (!this.db) {
+      this.dbInit()
+    }
     return new Promise((resolve, reject) => {
       this.db.exec(sentence, function(err) {
         if (err) {

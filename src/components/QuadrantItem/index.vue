@@ -27,7 +27,7 @@
           </el-row>
           <el-row style="padding:10px">
             <el-col span="4">
-              备注：
+              内容：
             </el-col>
             <el-col span="20">
               <el-input
@@ -102,6 +102,7 @@
             删除
           </el-button>
           <el-button
+            v-if="!row.end_time"
             type="text"
             size="small"
             style="color:#409EFF"
@@ -137,7 +138,9 @@ export default {
     }
   },
   created() {
-    this.getTableData()
+    setTimeout(() => {
+      this.getTableData()
+    }, 100)
   },
   methods: {
     handleFinish(data) {
@@ -184,8 +187,11 @@ export default {
      * @param {Data} time 创建时间
      */
     timeOperation(create_time, end_time) {
-      if (!end_time) return null
-      const timeDuration = Number(end_time) - Number(create_time)
+      let endTime = end_time
+      if (!end_time) {
+        endTime = new Date().valueOf()
+      }
+      const timeDuration = Number(endTime) - Number(create_time)
       return this.dayjs(timeDuration).format('D') + '天'
     },
     addNew() {
@@ -210,6 +216,8 @@ export default {
     },
     // 获取本地存储数据
     async getTableData() {
+      console.log('执行数据查询功能')
+      console.log(this.dataName)
       if (!this.dataName) return
       console.log('查询参数' + this.dataName)
       const res = await api.getListByType(this.dataName)

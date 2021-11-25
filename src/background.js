@@ -13,8 +13,8 @@ let win = null
 async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1040,
-    height: 720,
+    width: 1140,
+    height: 760,
     frame: false,
     resizable: true,
     webPreferences: {
